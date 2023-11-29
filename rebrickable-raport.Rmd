@@ -1,0 +1,106 @@
+---
+title: "Rebrickable - raport"
+author: "Witold Andraszyk"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(ggplot2)
+library(plotly)
+library(DT)
+library(dplyr)
+library(skimr)
+
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{r data_upload, cache=TRUE, include=FALSE, echo=FALSE}
+setwd('C:/Users/wandr/Desktop/Studia/ZED/PROJEKT 1')
+inventories <- read.csv('rebrickable/inventories.csv')
+inventory.parts <- read.csv('rebrickable/inventory_parts.csv')
+parts <- read.csv('rebrickable/parts.csv')
+colors <- read.csv('rebrickable/colors.csv')
+part.categories <- read.csv('rebrickable/part_categories.csv')
+part.relationships <- read.csv('rebrickable/part_relationships.csv')
+elements <- read.csv('rebrickable/elements.csv')
+inventory.minifigs <- read.csv('rebrickable/inventory_minifigs.csv')
+minifigs <- read.csv('rebrickable/minifigs.csv')
+inventory.sets <- read.csv('rebrickable/inventory_sets.csv')
+sets <- read.csv('rebrickable/sets.csv')
+themes <- read.csv('rebrickable/themes.csv')
+```
+
+# Podsumowanie
+Tu bedzie podsumowanie
+
+# Omówienie zbioru danych
+Analiza zostanie przeprowadzona na zbiorze danych z bazy strony Rebrickable. Dane podzielone są na dwanaście tabel. Tabela **sets** zawiera
+informacje o zestawach Lego dostępnych w sklepach:
+```{r}
+skim(sets)
+```
+
+Tabela **themes** zawiera informacje o oryginalnych kategoriach zestawów jak i współpracach (np. Lego Star Wars, Harry Potter):
+```{r}
+skim(themes)
+```
+Tabela **inventory_sets** zawiera informacje o zapasach poszczególnych zestawów:
+```{r}
+skim(inventory.sets)
+```
+Tabela **minifigs** zawiera informacje o dostępnych figurkach Lego:
+```{r}
+skim(minifigs)
+```
+Tabela **inventory_minifigs** zawiera informacje o zapasach poszczególnych zestawów figurek:
+```{r}
+skim(inventory.minifigs)
+```
+Tabela **parts** zawiera informacje o częściach, z których buduje się zestawy:
+```{r}
+skim(parts)
+```
+Tabela **part_categories** zawiera informacje o kategoriach części:
+```{r}
+skim(part.categories)
+```
+Tabela **part_relationships** zawiera informacje o relacjach między częsciami:
+```{r}
+skim(part.relationships)
+```
+Tabela **elements** zawiera informacje o elementach (pojedynczych klockach), z których złożone są części:
+```{r}
+skim(elements)
+```
+Tabela **colors** zawiera informacje o oficjalnych kolorach części:
+```{r}
+skim(colors)
+```
+Tabela **inventory_parts** zawiera informacje o nakładzie poszczególnych części:
+```{r}
+skim(inventory.parts)
+```
+Tabela **inventories** jest tabelą nadrzędną wiążącą części i figurki z zestawami:
+```{r}
+skim(inventories)
+```
+
+# Rozwój Lego na przestrzeni lat
+Wraz z rozwojem marki Lego sukcesywnie wzrastała liczba wypuszczanych w danym roku zestawów klocków. Firma Lego zwiększa jednak nie tylko ich liczbę, ale
+i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku.
+```{r sets_and_themes}
+sets.themes <- group_by(sets, year) %>% summarise(Unique_theme = n_distinct(theme_id), set_count = n())
+set.year <- ggplot(sets.themes) + geom_bar(aes(year, set_count, fill="zestawy"), stat="identity") + geom_bar(aes(year, Unique_theme, fill="motywy"), stat = "identity") + xlab("rok") + ylab("liczba zestawów/motywów") + theme_light()
+ggplotly(set.year)
+```
+asd
+```{r }
+
+```
+
