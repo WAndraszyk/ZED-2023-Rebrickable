@@ -8,7 +8,6 @@ output:
     toc_float: yes
     number_sections: yes
 ---
-
 ```{r setup, include=FALSE}
 library(knitr)
 library(ggplot2)
@@ -21,7 +20,6 @@ opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 ```
 
 ```{r data_upload, cache=TRUE, include=FALSE, echo=FALSE}
-setwd('C:/Users/wandr/Desktop/Studia/ZED/PROJEKT 1')
 inventories <- read.csv('rebrickable/inventories.csv')
 inventory.parts <- read.csv('rebrickable/inventory_parts.csv')
 parts <- read.csv('rebrickable/parts.csv')
@@ -36,9 +34,6 @@ sets <- read.csv('rebrickable/sets.csv')
 themes <- read.csv('rebrickable/themes.csv')
 ```
 
-# Podsumowanie
-Tu bedzie podsumowanie
-
 # Omówienie zbioru danych
 Analiza zostanie przeprowadzona na zbiorze danych z bazy strony Rebrickable. Dane podzielone są na dwanaście tabel. Tabela **sets** zawiera
 informacje o zestawach Lego dostępnych w sklepach:
@@ -46,61 +41,130 @@ informacje o zestawach Lego dostępnych w sklepach:
 skim(sets)
 ```
 
+<br>
+
 Tabela **themes** zawiera informacje o oryginalnych kategoriach zestawów jak i współpracach (np. Lego Star Wars, Harry Potter):
 ```{r}
 skim(themes)
 ```
+
+<br>
+
 Tabela **inventory_sets** zawiera informacje o zapasach poszczególnych zestawów:
 ```{r}
 skim(inventory.sets)
 ```
+
+<br>
+
 Tabela **minifigs** zawiera informacje o dostępnych figurkach Lego:
 ```{r}
 skim(minifigs)
 ```
+
+<br>
+
 Tabela **inventory_minifigs** zawiera informacje o zapasach poszczególnych zestawów figurek:
 ```{r}
 skim(inventory.minifigs)
 ```
+
+<br>
+
 Tabela **parts** zawiera informacje o częściach, z których buduje się zestawy:
 ```{r}
 skim(parts)
 ```
+
+<br>
+
 Tabela **part_categories** zawiera informacje o kategoriach części:
 ```{r}
 skim(part.categories)
 ```
+
+<br>
+
 Tabela **part_relationships** zawiera informacje o relacjach między częsciami:
 ```{r}
 skim(part.relationships)
 ```
+
+<br>
+
 Tabela **elements** zawiera informacje o elementach (pojedynczych klockach), z których złożone są części:
 ```{r}
 skim(elements)
 ```
+
+<br>
+
 Tabela **colors** zawiera informacje o oficjalnych kolorach części:
 ```{r}
 skim(colors)
 ```
+
+<br>
+
 Tabela **inventory_parts** zawiera informacje o nakładzie poszczególnych części:
 ```{r}
 skim(inventory.parts)
 ```
+
+<br>
+
 Tabela **inventories** jest tabelą nadrzędną wiążącą części i figurki z zestawami:
 ```{r}
 skim(inventories)
 ```
 
 # Rozwój Lego na przestrzeni lat
-Wraz z rozwojem marki Lego sukcesywnie wzrastała liczba wypuszczanych w danym roku zestawów klocków. Firma Lego zwiększa jednak nie tylko ich liczbę, ale
-i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku.
+Poniższy wykres przedstawia zmiany w liczbie zestawów oraz ich motywów w kolejnych latach. 
 ```{r sets_and_themes}
-sets.themes <- group_by(sets, year) %>% summarise(Unique_theme = n_distinct(theme_id), set_count = n())
-set.year <- ggplot(sets.themes) + geom_bar(aes(year, set_count, fill="zestawy"), stat="identity") + geom_bar(aes(year, Unique_theme, fill="motywy"), stat = "identity") + xlab("rok") + ylab("liczba zestawów/motywów") + theme_light()
-ggplotly(set.year)
-```
-asd
-```{r }
-
+sets.year <- group_by(sets, year) %>% summarise(Unique_theme = n_distinct(theme_id), set_count = n())
+set.year.plot <- ggplot(sets.year) + geom_bar(aes(year, set_count, fill="zestawy"), stat="identity") + geom_bar(aes(year, Unique_theme, fill="motywy"), stat = "identity") + xlab("rok") + ylab("liczba zestawów/motywów") + theme_light()
+ggplotly(set.year.plot)
 ```
 
+W tym (2023) roku najwięcej jest dostępnych zestawów *books* (są to książeczki lub komiksy z dołączoną minifigurką lub niewielkim zestawem klocków), na podium znajdują się również zestawy Lego Friends (marka własna Lego niezwiązana z serialem pod tym samym tytułem) i zestawy powstałe we współpracy z marką Star Wars.
+```{r popular_motives_2023}
+sets.themes <- merge(sets, themes, by.x="theme_id", by.y="id")
+tbl_sets.themes.2023 <- tbl_df(sets.themes) %>% select(year, name.y) %>% filter(year==2023) %>% group_by(name.y) %>% summarise(set_count = n()) %>% rename(theme=name.y) %>% arrange(desc(set_count))
+kable(head(tbl_sets.themes.2023))
+```
+
+Warto również zwrócić uwagę na to jak z biegiem lat zmieniała się liczba części przypadających na zestaw.
+```{r sets_and_parts}
+parts.year <- group_by(sets, year) %>% summarise(parts.mean = mean(num_parts))
+parts.year.plot <- ggplot(parts.year, aes(year, parts.mean)) + geom_bar(stat="identity") + xlab("rok") + ylab("średnia liczba części w zestawie") + theme_light()
+ggplotly(parts.year.plot)
+```
+
+Na poniższym wykresie widać ile różnych kolorów Lego wykorzystywało w swoich zestawach na przestrzeni lat.
+```{r years_and_colors}
+inventory_parts.invetories <- merge(inventory.parts, inventories, by.x="inventory_id", by.y="id")
+inventory_parts.sets <- merge(inventory_parts.invetories, sets, by="set_num")
+inventory_parts.sets.colors <- select(inventory_parts.sets, year, color_id) %>% group_by(year) %>% summarise(unique_colors=n_distinct(color_id))
+inventory_parts.sets.colors.plot <- ggplot(inventory_parts.sets.colors, aes(year, unique_colors)) + geom_bar(stat="identity") + xlab("rok") + ylab("liczba kolorów") + theme_light()
+ggplotly(inventory_parts.sets.colors.plot)
+```
+
+Na powyższym wykresie można zaobserwować pik ilości kolorów w zestawach w latach 2003-2006. Sprawdźmy jakich zestawów na rynek wypuszczono wtedy najwięcej.
+```{r popular_motives_2004}
+tbl_sets.themes.2004 <- tbl_df(sets.themes) %>% select(year, name.y) %>% filter(year>2002, year<2007) %>% group_by(name.y) %>% summarise(set_count = n()) %>% rename(theme=name.y) %>% arrange(desc(set_count))
+kable(head(tbl_sets.themes.2004))
+```
+
+Ostatni wykres przedstawia zmiany w liczbie dostępnych na rynku figurek na przestrzeni lat.
+```{r minifigures}
+inventory_minifigs.inventories <- merge(inventory.minifigs, inventories, by.x="inventory_id", by.y="id")
+inventory_minifigs.sets <- merge(inventory_minifigs.inventories, sets, by="set_num")
+inventory_minifigs.sets.year <- group_by(inventory_minifigs.sets, year) %>% summarise(unique_figures=n_distinct(fig_num))
+inventory_minifigs.sets.year.plot <- ggplot(inventory_minifigs.sets.year, aes(year, unique_figures)) + geom_bar(stat="identity") + xlab("rok") + ylab("liczba unikalnych minifigurek") + theme_light()
+ggplotly(inventory_minifigs.sets.year.plot)
+```
+
+
+# Podsumowanie
+Wraz z rozwojem marki Lego sukcesywnie wzrasta liczba wypuszczanych w danym roku zestawów klocków. Firma Lego zwiększa jednak nie tylko ich liczbę, ale
+i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc za tem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa.
