@@ -34,6 +34,8 @@ sets <- read.csv('rebrickable/sets.csv')
 themes <- read.csv('rebrickable/themes.csv')
 ```
 
+# Wprowadzenie
+
 # Omówienie zbioru danych
 Analiza zostanie przeprowadzona na zbiorze danych z bazy strony Rebrickable. Dane podzielone są na dwanaście tabel. Tabela **sets** zawiera
 informacje o zestawach Lego dostępnych w sklepach:
@@ -167,4 +169,6 @@ ggplotly(inventory_minifigs.sets.year.plot)
 
 # Podsumowanie
 Wraz z rozwojem marki Lego sukcesywnie wzrasta liczba wypuszczanych w danym roku zestawów klocków. Firma Lego zwiększa jednak nie tylko ich liczbę, ale
-i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc za tem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa.
+i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc za tem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa. Tendencję wzrostową obserwujemy również w liczbie wypuszczanych na rynek minifigurek, może to być związane m.in. z rozwojem aspektu kolekcjonerskiego produktów Lego. 
+
+# Przewidywania
