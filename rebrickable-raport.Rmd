@@ -121,7 +121,7 @@ skim(inventories)
 ```
 
 # Rozwój Lego na przestrzeni lat
-Poniższy wykres przedstawia zmiany w liczbie zestawów oraz ich motywów w kolejnych latach. 
+Poniższy wykres przedstawia zmiany w liczbie wypuszczanych na rynek zestawów oraz ich motywów w kolejnych latach. 
 ```{r sets_and_themes}
 sets.year <- group_by(sets, year) %>% summarise(Unique_theme = n_distinct(theme_id), set_count = n())
 set.year.plot <- ggplot(sets.year) + geom_bar(aes(year, set_count, fill="zestawy"), stat="identity") + geom_bar(aes(year, Unique_theme, fill="motywy"), stat = "identity") + xlab("rok") + ylab("liczba zestawów/motywów") + theme_light()
@@ -166,9 +166,9 @@ inventory_minifigs.sets.year.plot <- ggplot(inventory_minifigs.sets.year, aes(ye
 ggplotly(inventory_minifigs.sets.year.plot)
 ```
 
-
 # Podsumowanie
 Wraz z rozwojem marki Lego sukcesywnie wzrasta liczba wypuszczanych w danym roku zestawów klocków. Firma Lego zwiększa jednak nie tylko ich liczbę, ale
-i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc za tem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa. Tendencję wzrostową obserwujemy również w liczbie wypuszczanych na rynek minifigurek, może to być związane m.in. z rozwojem aspektu kolekcjonerskiego produktów Lego. 
+i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc zatem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa. Tendencję wzrostową obserwujemy również w liczbie wypuszczanych na rynek minifigurek, może to być związane m.in. z rozwojem aspektu kolekcjonerskiego produktów Lego. 
 
 # Przewidywania
+We wszystkich analizowanych aspektach zauważamy tendencje wzrostowe i nie ma powodów by te trendy miały się odwrócić. Liczba wypuszczanych na rynek zestawów powinna się nadal zwiększać aby trafiać do jak najszerszego grona odbiorców, a jednocześnie zaspokajać potrzeby tych, którzy już są stałymi klientami Lego; wiązać się z tym będzie również coraz większa liczba figurek, które są dołączane do zestawów, ale również wypuszczane osobno jako figurki kolekcjonerskie. Sposobem na poszerzanie grona klientów są współprace ze znanymi markami i tych również spodziewałbym się sporo a co za tym idzie - rosnącej liczby motywów. Lego będzie również prawdopodobnie tworzyć zestawy coraz większe i bardziej skomplikowane, aby zaspokoić potrzeby największych pasjonatów.
