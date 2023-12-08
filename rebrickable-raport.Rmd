@@ -24,8 +24,6 @@ inventories <- read.csv('rebrickable/inventories.csv')
 inventory.parts <- read.csv('rebrickable/inventory_parts.csv')
 parts <- read.csv('rebrickable/parts.csv')
 colors <- read.csv('rebrickable/colors.csv')
-part.categories <- read.csv('rebrickable/part_categories.csv')
-part.relationships <- read.csv('rebrickable/part_relationships.csv')
 elements <- read.csv('rebrickable/elements.csv')
 inventory.minifigs <- read.csv('rebrickable/inventory_minifigs.csv')
 minifigs <- read.csv('rebrickable/minifigs.csv')
@@ -35,9 +33,10 @@ themes <- read.csv('rebrickable/themes.csv')
 ```
 
 # Wprowadzenie
+Celem tej analizy jest przyjrzenie się rozwojowi Lego na przestrzeni lat na podstawie danych z bazy strony Rebrickable. Przyglądając się takim statystykom jak liczba zestawów, motywów, części w zestawie, kolorów części czy minifigurek starano się poznać historię rozwoju marki, wyznaczyć trendy w jej rozwoju i na tej podstawie przedstawić przewidywania na przyszłość. We wszystkich analizowanych aspektach zauważa się tendencje wzrostowe.
 
 # Omówienie zbioru danych
-Analiza zostanie przeprowadzona na zbiorze danych z bazy strony Rebrickable. Dane podzielone są na dwanaście tabel. Tabela **sets** zawiera
+Analiza zostanie przeprowadzona na zbiorze danych z bazy strony Rebrickable. Na omawiany zbiór danych składać się będzie dziesięć tabel. Tabela **sets** zawiera
 informacje o zestawach Lego dostępnych w sklepach:
 ```{r}
 skim(sets)
@@ -76,20 +75,6 @@ skim(inventory.minifigs)
 Tabela **parts** zawiera informacje o częściach, z których buduje się zestawy:
 ```{r}
 skim(parts)
-```
-
-<br>
-
-Tabela **part_categories** zawiera informacje o kategoriach części:
-```{r}
-skim(part.categories)
-```
-
-<br>
-
-Tabela **part_relationships** zawiera informacje o relacjach między częsciami:
-```{r}
-skim(part.relationships)
 ```
 
 <br>
@@ -171,4 +156,4 @@ Wraz z rozwojem marki Lego sukcesywnie wzrasta liczba wypuszczanych w danym roku
 i różnorodność co ma odzwierciedlenie w tendencji wzrostowej również w liczbie motywów w każdym roku. Lego silnie współpracuje ze znanymi markami takimi jak Star Wars, ale rozwija również marki własne. Zwiększa się również liczba części przypadająca na pojedynczy zestaw, co może być związane m.in. z rozpoczętymi w ostatnich latach próbami dotarcia do szerszej grupy dorosłych konsumentów, a co za tym idzie - zwiększania poziomu skomplikowania zestawów. Trend wzrostowy widzimy również w ilości wykorzystywanych w zestawach kolorów, chociaż jej pik przypada na lata 2003-2006. W tamtych latach najwięcej na rynku było zestawów marek Bionicle, Racers i Clikits, są to kolejno: seria figurek składających się z wielu części w motywach żywiołów, seria wyścigówek z klocków i seria dziewczęcej biżuteri do samodzielnego składania. Nie dziwi więc zatem mnogość barw wykorzystywanych w tamtych czasach w zestawach Lego. Po tych latach nastąpił spadek, jednak liczba wykorzystywanych kolorów z roku na rok się zwiększa. Tendencję wzrostową obserwujemy również w liczbie wypuszczanych na rynek minifigurek, może to być związane m.in. z rozwojem aspektu kolekcjonerskiego produktów Lego. 
 
 # Przewidywania
-We wszystkich analizowanych aspektach zauważamy tendencje wzrostowe i nie ma powodów by te trendy miały się odwrócić. Liczba wypuszczanych na rynek zestawów powinna się nadal zwiększać aby trafiać do jak najszerszego grona odbiorców, a jednocześnie zaspokajać potrzeby tych, którzy już są stałymi klientami Lego; wiązać się z tym będzie również coraz większa liczba figurek, które są dołączane do zestawów, ale również wypuszczane osobno jako figurki kolekcjonerskie. Sposobem na poszerzanie grona klientów są współprace ze znanymi markami i tych również spodziewałbym się sporo a co za tym idzie - rosnącej liczby motywów. Lego będzie również prawdopodobnie tworzyć zestawy coraz większe i bardziej skomplikowane, aby zaspokoić potrzeby największych pasjonatów.
+We wszystkich analizowanych aspektach zauważa się tendencje wzrostowe i nie ma powodów by te trendy miały się odwrócić. Liczba wypuszczanych na rynek zestawów powinna się nadal zwiększać aby trafiać do jak najszerszego grona odbiorców, a jednocześnie zaspokajać potrzeby tych, którzy już są stałymi klientami Lego; wiązać się z tym będzie również coraz większa liczba figurek, które są dołączane do zestawów, ale również wypuszczane osobno jako figurki kolekcjonerskie. Sposobem na poszerzanie grona klientów są współprace ze znanymi markami i tych również spodziewałbym się sporo a co za tym idzie - rosnącej liczby motywów. Lego będzie również prawdopodobnie tworzyć zestawy coraz większe i bardziej skomplikowane, aby zaspokoić potrzeby największych pasjonatów.
